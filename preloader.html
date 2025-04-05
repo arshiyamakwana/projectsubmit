@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lazy Loading with Skeleton</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        /* Skeleton loader styles */
+        .skeleton {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .skeleton-card {
+            background-color: #e0e0e0;
+            height: 150px;
+            border-radius: 8px;
+            animation: loading 1.5s infinite alternate;
+        }
+
+        @keyframes loading {
+            0% { background-color: #e0e0e0; }
+            100% { background-color: #c0c0c0; }
+        }
+
+        /* Actual content (hidden initially) */
+        .real-content {
+            display: none;
+        }
+
+        .product {
+            display: inline-block;
+            width: 30%;
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .product img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .buy-btn {
+            background-color: black;
+            color: white;
+            padding: 8px 12px;
+            margin-top: 5px;
+            display: block;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Skeleton Loader -->
+        <div class="skeleton" id="skeleton">
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+        </div>
+
+        <!-- Actual Content -->
+        <div class="real-content" id="real-content">
+            <div class="product">
+                <img src="https://rukminim2.flixcart.com/image/850/1000/kfsl18w0/pendrive/pendrive/a/q/2/sandisk-pendrive-64-gb-usb-3-0-original-imafw63vyhc282g3.jpeg?q=90&crop=false" alt="Product 1">
+                <p>Product 1 - 100</p>
+                <a href="#" class="buy-btn">Buy Now</a>
+            </div>
+            <div class="product">
+                <img src="https://rukminim2.flixcart.com/image/850/1000/kfsl18w0/pendrive/pendrive/a/q/2/sandisk-pendrive-64-gb-usb-3-0-original-imafw63vyhc282g3.jpeg?q=90&crop=false" alt="Product 2">
+                <p>Product 2 - 150</p>
+                <a href="#" class="buy-btn">Buy Now</a>
+            </div>
+            <div class="product">
+                <img src="https://rukminim2.flixcart.com/image/850/1000/kfsl18w0/pendrive/pendrive/a/q/2/sandisk-pendrive-64-gb-usb-3-0-original-imafw63vyhc282g3.jpeg?q=90&crop=false" alt="Product 3">
+                <p>Product 3 - 200</p>
+                <a href="#" class="buy-btn">Buy Now</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulating data loading delay
+        setTimeout(() => {
+            document.getElementById("skeleton").style.display = "none";  // Hide skeleton
+            document.getElementById("real-content").style.display = "block";  // Show real content
+        }, 3000); // Change the delay as needed (3 seconds here)
+    </script>
+
+</body>
+</html>
+
+
