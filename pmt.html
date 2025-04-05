@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Management Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        
+        .container {
+            width: 80%;
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        h2 {
+            text-align: center;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+        }
+
+        .project {
+            background: #eef;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        .tasks {
+            margin-top: 10px;
+        }
+
+        .progress-bar {
+            height: 10px;
+            width: 100%;
+            background: #ddd;
+            border-radius: 5px;
+            margin-top: 10px;
+            position: relative;
+        }
+
+        .progress {
+            height: 100%;
+            width: 0;
+            background: #28a745;
+            border-radius: 5px;
+        }
+        
+        .task {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 10px;
+            background: #fff;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .task input {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Project Management Tool</h2>
+
+        <!-- Project Input -->
+        <input type="text" id="projectName" placeholder="Enter project name">
+        <button onclick="addProject()">Add Project</button>
+
+        <!-- Projects Container -->
+        <div id="projects"></div>
+    </div>
+
+    <script>
+        function addProject() {
+            let projectName = document.getElementById('projectName').value;
+            if (projectName === '') return;
+
+            let projectContainer = document.createElement('div');
+            projectContainer.classList.add('project');
+
+            projectContainer.innerHTML = `
+                <h3>${projectName}</h3>
+                <input type="text" placeholder="Task name" class="taskName">
+                <button onclick="addTask(this)">Add Task</button>
+                <div class="tasks"></div>
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+            `;
+
+            document.getElementById('projects').appendChild(projectContainer);
+            document.getElementById('projectName').value = ''; // Clear input
+        }
+
+        function addTask(button) {
+            let taskNameInput = button.previousElementSibling;
+            let taskName = taskNameInput.value;
+            if (taskName === '') return;
+
+           let taskContainer = button.nextElementSibling;
+            let task = document.createElement('div');
+            task.classList.add('task');
+
+            task.innerHTML = `
+                <input type="checkbox" onchange="updateProgress(this)">
+                <span>${taskName}</span>
+            `;
+
+            taskContainer.appendChild(task);
+            taskNameInput.value = ''; // Clear task input
+            updateProgress(button); // Update progress
+        }
+
+        function updateProgress(checkbox) {
+            let project = checkbox.closest('.project');
+            let tasks = project.querySelectorAll('.task input');
+            let completedTasks = project.querySelectorAll('.task input:checked').length;
+            
+            let progressBar = project.querySelector('.progress');
+            let percentage = (completedTasks / tasks.length) * 100 || 0;
+
+            progressBar.style.width = percentage + '%';
+        }
+    </script>
+
+</body>
+</html>
